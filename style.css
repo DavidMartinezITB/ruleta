@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f8ff;
+  color: #333;
+}
+
+.container {
+  margin: 50px auto;
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+canvas {
+  margin: 20px auto;
+  display: block;
+}
+
+.flex-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0; /* Separación entre los elementos */
+}
+
+#cell1 {
+  display: flex;
+  margin-left: 9%;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* width: 150px;
+  height: 150px; */
+  /* background-color: #007bff; */
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#cell2 {
+  display: flex;
+  /* justiitems: center; */
+  width: 150px;
+  height: 150px;
+  font-size: 2rem;
+  font-weight: bold;
+  padding-top: 8%;
+}
+
+#winMark {
+  display: none;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Ruleta de Nombres</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>Ruleta de Nombres</h1>
+			<div class="flex-table">
+				<div id="cell1">
+					<canvas id="wheelCanvas" width="500" height="500"></canvas>
+				</div>
+				<div id="cell2">
+					<p id="winMark">&lt;-</p>
+				</div>
+			</div>
+			<div id="result"></div>
+			<button id="loadNames">Cargar Nombres</button>
+			<button id="spinWheel" disabled>Girar Ruleta</button>
+		</div>
+		<audio id="spinSound" src="spin.mp3"></audio>
+		<audio id="winSound" src="win.mp3"></audio>
+		<script src="wheel.js"></script>
+		<script src="loadNames.js"></script>
+	</body>
+</html>
