@@ -58,11 +58,6 @@ canvas {
 #cell1 {
   display: flex;
   margin-left: 9%;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* width: 150px;
-  height: 150px; */
-  /* background-color: #007bff; */
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -79,4 +74,41 @@ canvas {
 
 #winMark {
   display: none;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  background-color: #222;
+  color: #eee;
+}
+
+.dark-mode .container {
+  background-color: #333;
+  border-color: #007bff;
+}
+
+.dark-mode h1 {
+  color: #00c8ff;
+}
+
+.dark-mode button {
+  background-color: #00c8ff;
+  color: #222;
+}
+
+.dark-mode button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.dark-mode #result {
+  color: #00c8ff;
+}
+
+.dark-mode #cell1 {
+  color: #00c8ff;
+}
+
+.dark-mode #cell2 {
+  color: #00c8ff;
 }

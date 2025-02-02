@@ -9,32 +9,43 @@ let isSpinning = false; // Variable de control para saber si la ruleta esta gira
 
 // Cuando hacemos click en el boton de girar ruleta
 document.getElementById('spinWheel').addEventListener('click', () => {
-	// Si esta rodando o no hay nombres cargados, vuelve
-	if (isSpinning || names.length === 0) {
-		return;
-	};
+    // Si esta rodando o no hay nombres cargados, vuelve
+    if (isSpinning || names.length === 0) {
+        return;
+    }
 
-	isSpinning = true; // Seteamos la variable de control en true
-	spinSound.play(); // Reproducimos el sonido de girar
-	const spinTime = Math.random() * 3000 + 3000; // Duración entre 3 y 6 segundos - Math.random() genera un numero aleatorio entre 0 y 1
-	let angle = 0; // Inicializamos el angulo de la ruleta, que por defecto es 0
-	const spinSpeed = Math.random() * 10 + 10;
+    isSpinning = true; // Seteamos la variable de control en true
+    const spinTime = Math.random() * 3000 + 3000; // Duración entre 3 y 6 segundos - Math.random() genera un numero aleatorio entre 0 y 1
+    let angle = 0; // Inicializamos el angulo de la ruleta, que por defecto es 0
+    let spinSpeed = Math.random() * 10 + 10; // Velocidad inicial de giro
 
-	// Con la siguiente funcion, definimos un bloque de codigo que se ejecutara cada 16ms, que aumentara el angulo de la ruleta, 
-	// haciendola girar. 
-	const spin = setInterval(() => {
-		angle += spinSpeed; // Modificamos el angulo, simulando un giro
-		drawWheel(angle); // Printamos la ruleta con el nuevo angulo
-	}, 16); // Definimos 16ms por la tasa de refresco de la pantalla: 60FPS
+    // Con la siguiente funcion, definimos un bloque de codigo que se ejecutara cada 16ms, que aumentara el angulo de la ruleta, 
+    // haciendola girar. 
+    const spin = setInterval(() => {
+		spinSound.play(); // Reproducimos el sonido de girar
+        angle += spinSpeed; // Modificamos el angulo, simulando un giro
+        drawWheel(angle); // Printamos la ruleta con el nuevo angulo
+    }, 16); // Definimos 16ms por la tasa de refresco de la pantalla: 60FPS
 
-	// Definimos una funcion que detendra la ruleta una vez el tiempo de rodad finalice
-	setTimeout(() => {
-		clearInterval(spin); // Detenemos el intervalo para que la ruleta no gire mas
-		const selectedName = getSelectedName(angle); // Seleccionamos el nombre que ha tocado
-		document.getElementById('result').textContent = selectedName; // Lo mostramos
-		winSound.play(); // Reproducimos el sonido de ganar
-		isSpinning = false; // Definimos en falso la variable de control
-	}, spinTime);
+    // Definimos una funcion que detendra la ruleta una vez el tiempo de rodad finalice
+    setTimeout(() => {
+		// Disminuimos la velocidad de giro progresivamente
+        const slowDown = setInterval(() => {
+            spinSpeed *= 0.98; // Reducimos la velocidad de giro un 2% en cada intervalo
+            // Detenemos la ruleta cuando la velocidad sea suficientemente baja
+            if (spinSpeed < 0.1) { 
+                clearInterval(spin);
+                clearInterval(slowDown);
+                const selectedName = getSelectedName(angle); // Seleccionamos el nombre que ha tocado
+                document.getElementById('result').textContent = selectedName; // Lo mostramos
+                winSound.play(); // Reproducimos el sonido de ganar
+                isSpinning = false; // Definimos en falso la variable de control
+            } else {
+                angle += spinSpeed; // Seguimos girando mientras frenamos
+				drawWheel(angle);
+            }
+        }, 16); // Mismo intervalo que al girar
+    }, spinTime);
 });
 
 // Declaramos la funcion que imprime (y actualiza) la ruleta con el angulo que le pasemos
@@ -57,7 +68,7 @@ function drawWheel(rotation = 0) {
 		ctx.arc(centerX, centerY, radius, startAngle, endAngle);
 		ctx.closePath();
 
-		ctx.fillStyle = i % 2 === 0 ? '#007bff' : '#00c8ff';
+		ctx.fillStyle = getRandomColor() //i % 2 === 0 ? '#007bff' : '#00c8ff';
 		ctx.fill();
 
 		ctx.save();
@@ -74,6 +85,13 @@ function drawWheel(rotation = 0) {
 		ctx.restore();
 	});
 }
+
+// Obtener un color aleatorio
+function getRandomColor() {
+	const hue = Math.random() * 360; // Hue inicial aleatorio
+	const complementaryHue = (hue + 180) % 360; // Calcula el hue complementario
+	return `hsl(${complementaryHue}, 100%, 50%)`; // Crea el color HSL
+  }
 
 // Obtenemos el nombre escogido
 function getSelectedName(rotation) {

@@ -1,7 +1,7 @@
 // Cuando se hace click en cargar nombres, creamos una funcion asincrona para cargar los nombres
 document.getElementById('loadNames').addEventListener('click', async () => {
 	try {
-		const response = await fetch('noms.txt'); // Abrimos el fichero de logs
+		const response = await fetch('./noms.txt'); // Abrimos el fichero de logs
 		const data = await response.text(); // Obtenemos los nombres del fichero
 		names = data.split('\n'); // Creamos un array con los nombres, separando cada nombre por salto de linea
 
